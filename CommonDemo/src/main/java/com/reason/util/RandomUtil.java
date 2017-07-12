@@ -6,6 +6,10 @@ import java.util.UUID;
 
 public class RandomUtil {
 
+    public static final String ALLCHAR = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String LETTERCHAR = "abcdefghijkllmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String NUMBERCHAR = "0123456789";
+
 	private static Random rdm = new Random();
 
 	/**
