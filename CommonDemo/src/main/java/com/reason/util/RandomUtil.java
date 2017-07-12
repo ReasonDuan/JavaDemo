@@ -163,7 +163,6 @@ public class RandomUtil {
 		long start = System.currentTimeMillis();
 		for (int i = 0; i < 500000; i++) {
 			String s = getRandomWords(1024);
-			//System.out.println(getRandomString(1024));
 		}
 		System.out.println(System.currentTimeMillis()-start);
 	}
