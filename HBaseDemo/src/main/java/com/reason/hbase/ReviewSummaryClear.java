@@ -27,10 +27,6 @@ public class ReviewSummaryClear {
     private static int threads = 10;
     private static ExecutorService executor;
     public static void main(String[] args) {
-        // E3
-        //String hbaseHost = "172.16.31.81,172.16.31.82,172.16.31.83,172.16.31.84,172.16.31.85";
-        // E4
-        //String hbaseHost = "172.16.59.131,172.16.59.132,172.16.59.133,172.16.59.134,172.16.59.141";
         // local
         String hbaseHost = "ssspark01,ssspark03,ssspark02";
         if(args.length==3){
