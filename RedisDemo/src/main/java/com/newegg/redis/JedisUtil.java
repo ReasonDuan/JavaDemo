@@ -75,25 +75,6 @@ public class JedisUtil {
 
     public static void main(String[] args) {
         JedisUtil jedisUtil = new JedisUtil("10.16.238.83:8000","REASON",600);
-        Set<String> sets = new HashSet<String>();
-        for(int i=0; i<50; i++){
-            sets.add(""+ RandomUtil.getAge());
-        }
-        //sets.add("369");
-        //jedisUtil.hset("WISHLISTITEMKEY","aa-bbb-ccc",sets);
-        jedisUtil.hset("WISHLISTITEMKEY","aa-bbb-ccc",sets);
-        //jedisUtil.hgetAll("WISHLISTITEMKEY");
-
-        System.out.println(jedisUtil.hget("WISHLIST:ITEMWISHLISTCACHEKEY","32-102-262 "));
-
-
-        long start = System.currentTimeMillis();
-//        for(int j=0; j<10000; j++){
-//            Set<String> wishlist = jedisUtil.hget("WISHLISTITEMKEY","aa-bbb-ccc");
-//            //System.out.println(wishlist);
-//        }
-        System.out.println("Use time " + (System.currentTimeMillis()-start) + " ms.");
-        System.out.println(jedisUtil.exists("WISHLISTITEMKEY","cc-ddd-aaa"));
     }
 
 
