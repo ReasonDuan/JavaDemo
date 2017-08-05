@@ -326,40 +326,7 @@ public class HBaseUtils {
 		try {
 
 			HBaseUtils.init("ssspark01,ssspark03,ssspark02");
-			//HBaseUtils.init("sxlab19-0,sxlab19-1,sxlab19-2");
-
-			//createTable("reason_test", "BI");
-			//Table table = getTable("reason:test");
-			Table table = getTable("ecitem:EC_ItemReviewBase");
-
-
-			Put putf = new Put(Bytes.toBytes("12716499d71d412e79c0a38abaf3faba144c2593f2b2a6a76ab893672a2e47f2|4621590"));
-			putf.addColumn(Bytes.toBytes("BaseInfo"),Bytes.toBytes("approve"),Bytes.toBytes("Y"));
-
-			//Delete del = new Delete(Bytes.toBytes("12716499d71d412e79c0a38abaf3faba144c2593f2b2a6a76ab893672a2e47f2|4621590"));
-			//del.addColumn(Bytes.toBytes("BaseInfo"),Bytes.toBytes("Approve"));
-
-			//table.delete(del);
-			table.put(putf);
-
-//			Put putf = new Put(Bytes.toBytes("key1"));
-//			putf.addColumn(Bytes.toBytes("BI"),Bytes.toBytes("C1"),Bytes.toBytes("V7"));
-//			putf.addColumn(Bytes.toBytes("info"),Bytes.toBytes("C1"),Bytes.toBytes("V4"));
-//			Delete del = new Delete(Bytes.toBytes("key1"));
-//
-//			Put put = new Put(Bytes.toBytes("key1"));
-//			put.addColumn(Bytes.toBytes("BI"),Bytes.toBytes("C1"),Bytes.toBytes("V8"));
-//			table.put(putf);
-//			table.delete(del);
-//			table.put(put);
-
-			HBaseUtils.closeTable(table);
 			HBaseUtils.closeConnection();
-
-			//showTables();
-
-
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
