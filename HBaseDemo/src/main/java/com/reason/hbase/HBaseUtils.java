@@ -334,12 +334,12 @@ public class HBaseUtils {
 
 
 			Put putf = new Put(Bytes.toBytes("12716499d71d412e79c0a38abaf3faba144c2593f2b2a6a76ab893672a2e47f2|4621590"));
-			putf.addColumn(Bytes.toBytes("BaseInfo"),Bytes.toBytes("approve"),Bytes.toBytes("N"));
+			putf.addColumn(Bytes.toBytes("BaseInfo"),Bytes.toBytes("approve"),Bytes.toBytes("Y"));
 
-			Delete del = new Delete(Bytes.toBytes("12716499d71d412e79c0a38abaf3faba144c2593f2b2a6a76ab893672a2e47f2|4621590"));
-			del.addColumn(Bytes.toBytes("BaseInfo"),Bytes.toBytes("Approve"));
+			//Delete del = new Delete(Bytes.toBytes("12716499d71d412e79c0a38abaf3faba144c2593f2b2a6a76ab893672a2e47f2|4621590"));
+			//del.addColumn(Bytes.toBytes("BaseInfo"),Bytes.toBytes("Approve"));
 
-			table.delete(del);
+			//table.delete(del);
 			table.put(putf);
 
 //			Put putf = new Put(Bytes.toBytes("key1"));
