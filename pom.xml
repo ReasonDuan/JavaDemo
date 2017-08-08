@@ -9,7 +9,7 @@
     <module>CommonDemo</module>
     <module>HBaseDemo</module>
     <module>RedisDemo</module>
-      <module>ZookeeperDemo</module>
+    <module>ZookeeperDemo</module>
   </modules>
   <packaging>pom</packaging>
 
