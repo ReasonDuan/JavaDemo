@@ -110,6 +110,9 @@ public class ZookeeperCurator {
     }
 
 
+    /**
+     * Zookeeper分布式锁
+     */
     public static class Queuer implements Runnable{
 
         private static int queue = 0;
