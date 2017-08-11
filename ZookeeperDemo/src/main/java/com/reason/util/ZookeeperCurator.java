@@ -128,12 +128,12 @@ public class ZookeeperCurator {
             int n = 20;
             while ( n-- > 0){
                 try {
-                    //lock.acquire(1, TimeUnit.SECONDS);
-                    lock.acquire();
+                    //lock.acquire(1, TimeUnit.SECONDS); //获取锁，等待1秒钟
+                    lock.acquire();  //一直等待，直到获取到锁为止
                     if(lock.isAcquiredInThisProcess()){
                         queue++;
                         logger.info("---->"+Thread.currentThread().getName()+": acquire lock "+queue);
-                        //Thread.sleep(100);
+                        Thread.sleep(100);
                     }else{
                         //logger.info(Thread.currentThread().getName()+": could not acquire lock "+n);
                     }
