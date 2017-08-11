@@ -10,6 +10,7 @@
     <module>HBaseDemo</module>
     <module>RedisDemo</module>
     <module>ZookeeperDemo</module>
+    <module>UndertowDemo</module>
   </modules>
   <packaging>pom</packaging>
 
