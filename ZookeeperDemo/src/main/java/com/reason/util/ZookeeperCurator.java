@@ -29,37 +29,32 @@ public class ZookeeperCurator {
     }
 
     public void createPath(String path) throws Exception{
-        if(!exist(path)){
-            client.create().forPath(path);
+        if(path.lastIndexOf("/") == path.length()-1){
+            path = path.substring(0, path.length()-1);
         }
-    }
-
-    public void createPath(String path, String data) throws Exception{
-        if(!exist(path)){
-            client.create().forPath(path, data.getBytes());
+        String parentPath = path.substring(0, path.lastIndexOf("/")).length()==0?"/":path.substring(0, path.lastIndexOf("/"));
+        if(!exist(parentPath)){
+            createPath(parentPath);
         }
+        client.create().forPath(path,"".getBytes());
     }
-
 
     public String getData(String path) throws Exception{
-        byte[] val = null;
-        if(exist(path)){
-            val = client.getData().forPath(path);
-        }
+        byte[] val = client.getData().forPath(path);
         return val == null ? null :new String(val);
     }
 
     public void setData(String path, String data) throws Exception{
-        if(exist(path)){
-            client.setData().forPath(path, data.getBytes());
-        }else{
-            client.create().forPath(path, data.getBytes());
-        }
+        client.setData().forPath(path, data.getBytes());
     }
 
     public boolean exist(String path) throws Exception{
         Stat stat = client.checkExists().forPath(path);
         return stat != null;
+    }
+
+    public void delPath(String path) throws Exception{
+        client.delete().forPath(path);
     }
 
 
@@ -70,7 +65,7 @@ public class ZookeeperCurator {
 
     public static void test() throws Exception{
 
-        String path = "/apps/wishlist_reason/reason";
+        String path = "/apps/reason/test";
 
         CuratorFramework client = CuratorFrameworkFactory.newClient("10.16.238.82:2181", new ExponentialBackoffRetry(10000, 10));
         client.start();
@@ -78,11 +73,11 @@ public class ZookeeperCurator {
 //        List<String> childrens = client.getChildren().forPath(path);
 //        System.out.println("ChildList:");
 //        childrens.forEach(a->{System.out.println(a);});
-
+        client.create().forPath(path);
         byte[] val = client.getData().forPath(path);
         System.out.println("Data:"+new String(val));
 
-        client.create().forPath(path);
+
 //        client.setData().forPath(path, "123456".getBytes());
 //        byte[] val = client.getData().forPath(path);
 //        System.out.println("Data:"+new String(val));
@@ -92,9 +87,19 @@ public class ZookeeperCurator {
 
 
     public static void main(String[] args) throws Exception {
+        String path = "/apps/reason_2/test";
+
+        ZookeeperCurator zc = new ZookeeperCurator();
+        zc.zookeeperHostPort = "10.16.238.82:2181";
+        zc.init();
 
 
-        testLock();
+        zc.createPath(path);
+
+        System.out.println(zc.getData(path));
+
+        //test();
+        //testLock();
 
     }
 
