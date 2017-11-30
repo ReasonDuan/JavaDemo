@@ -325,7 +325,7 @@ public class HBaseUtils {
 
 		try {
 
-			HBaseUtils.init("ssspark01,ssspark03,ssspark02");
+			HBaseUtils.init("host01,host02,host03");
 			HBaseUtils.closeConnection();
 
 		} catch (Exception e) {
