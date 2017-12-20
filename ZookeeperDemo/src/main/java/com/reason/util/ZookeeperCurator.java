@@ -126,7 +126,7 @@ public class ZookeeperCurator {
         private InterProcessMutex lock = null;
         private String lockPath = "/apps/wishlist_reason/reason";
         Queuer(){
-            client = CuratorFrameworkFactory.newClient("10.16.238.82:2181", new ExponentialBackoffRetry(10000, 10));
+            client = CuratorFrameworkFactory.newClient("zookeeperhost:2181", new ExponentialBackoffRetry(10000, 10));
             client.start();
             lock = new InterProcessMutex(client, lockPath);
         }
