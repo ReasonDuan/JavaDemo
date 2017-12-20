@@ -11,6 +11,7 @@
     <module>RedisDemo</module>
     <module>ZookeeperDemo</module>
     <module>UndertowDemo</module>
+      <module>KafkaDemo</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -32,6 +33,11 @@
       <groupId>com.reason</groupId>
       <artifactId>CommonDemo</artifactId>
       <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.41</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

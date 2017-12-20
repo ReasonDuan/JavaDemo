@@ -7,67 +7,109 @@ import java.util.regex.Pattern;
 
 public class MainTest extends AbstractRead {
 
-    private static Set<String> allIP = new HashSet<String>();
+    private static Set<String> dateSet = new HashSet<String>();
+    private static Set<String> dateSet_2 = new HashSet<String>();
     private static long lineNumber = 0;
+
+    // zookeeper log
+    //private static String inputPath = "C:\\Users\\rd87\\Desktop\\kafka\\zookeeper\\";
+    //private static String[] files = new String[]{"zk_41.log","zk_42.log","zk_43.log","zk_44.log","zk_45.log"};
+
+    // kafka log
+    private static String inputPath = "C:\\Users\\rd87\\Desktop\\kafka\\";
+    private static String[] files = new String[]{"kafka_small.logej"};
 
 
     public static void main(String[] args) {
         MainTest test = new MainTest();
-        test.readFileByLines("C:\\Users\\rd87\\Desktop\\kafka\\zookeeper\\zk_41.log");
-        test.readFileByLines("C:\\Users\\rd87\\Desktop\\kafka\\zookeeper\\zk_42.log");
-        test.readFileByLines("C:\\Users\\rd87\\Desktop\\kafka\\zookeeper\\zk_43.log");
-        test.readFileByLines("C:\\Users\\rd87\\Desktop\\kafka\\zookeeper\\zk_44.log");
-        test.readFileByLines("C:\\Users\\rd87\\Desktop\\kafka\\zookeeper\\zk_45.log");
+        for(String file : files){
+            test.readFileByLines(inputPath+file);
+        }
 
-        List<String> ls = new ArrayList<String>(allIP);
+        // get zookeeper connect ip
+        //test.printZookeeperConnectIP();
+
+        // find kafka select leader error partition.
+        test.printKafkaErrorPartition();
+
+    }
+
+    @Override
+    public void executeOneLine(String oneLine) {
+        System.out.println("Current line:"+ ++lineNumber);
+        //getZookeeperConnectIP(oneLine);
+        findKafkaPartition(oneLine);
+    }
+
+
+    private void printKafkaErrorPartition() {
+        List<String> ls = new ArrayList<>();
+        for(String data : dateSet){
+            ls.add(data+" - true");
+        }
+        for(String data : dateSet_2){
+            ls.add(data+" - false");
+        }
+        Collections.sort(ls);
+
+        for(String ip : ls) {
+            System.out.println(ip);
+        }
+        System.out.println("Totals "+ls.size());
+    }
+
+
+    private void findKafkaPartition(String oneLine) {
+
+        if(oneLine.contains("Some broker in ISR is alive for")){
+            String s = "";
+            Pattern p = Pattern.compile("\\[\\S+,\\d+\\]");
+            Matcher m = p.matcher(oneLine);
+            while (m.find()) {
+                s = m.group();
+            }
+
+            Pattern p_ = Pattern.compile("from ISR \\d(,\\d)*");
+            Matcher m_ = p_.matcher(oneLine);
+            while (m_.find()) {
+                s += m_.group().substring(8);
+            }
+            dateSet.add(s);
+
+
+
+
+        }
+        if(oneLine.contains("No broker in ISR is alive for")){
+            Pattern p = Pattern.compile("\\[\\S+,\\d+\\]");
+            Matcher m = p.matcher(oneLine);
+            while (m.find()) {
+                dateSet_2.add(m.group());
+            }
+        }
+
+
+    }
+
+
+    private void printZookeeperConnectIP() {
+        List<String> ls = new ArrayList<String>(dateSet);
         Collections.sort(ls);
 
         for(String ip : ls) {
             System.out.println(ip);
         }
         System.out.println("Total ips "+ls.size());
-
     }
-
-
-    public static void test(){
-        String str = "yin yu shi wo zui cai de yu yan";
-        System.out.println(str);
-        String reg = "\\b[a-z]{3}\\b";//匹配只有三个字母的单词
-
-        //将规则封装成对象。
-        Pattern p = Pattern.compile(reg);
-
-        //让正则对象和要作用的字符串相关联。获取匹配器对象。
-        Matcher m  = p.matcher(str);
-
-        //System.out.println(m.matches());//其实String类中的matches方法。用的就是Pattern和Matcher对象来完成的。
-        //只不过被String的方法封装后，用起来较为简单。但是功能却单一。
-
-        // boolean b = m.find();//将规则作用到字符串上，并进行符合规则的子串查找。
-        // System.out.println(b);
-        // System.out.println(m.group());//用于获取匹配后结果。
-
-
-        while(m.find())
-        {
-            System.out.println(m.group());
-            System.out.println(m.start()+"...."+m.end());
-            // start()  字符的开始下标（包含）
-            //end()  字符的结束下标（不包含）
-        }
-    }
-
-
-
-
-    @Override
-    public void executeOneLine(String oneLine) {
+    private void getZookeeperConnectIP(String oneLine){
         Pattern p = Pattern.compile("((?:(?:25[0-5]|2[0-4]\\d|(?:1\\d{2}|[1-9]?\\d))\\.){3}(?:25[0-5]|2[0-4]\\d|(?:1\\d{2}|[1-9]?\\d)))");
         Matcher m = p.matcher(oneLine);
         while (m.find()) {
-            allIP.add(m.group());
+            dateSet.add(m.group());
         }
-        System.out.println("Current line:"+ ++lineNumber);
     }
+
+
+
+
 }
