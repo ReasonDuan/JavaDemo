@@ -31,6 +31,20 @@ public class RandomUtil {
 		}
 		return new String(s);
 	}
+
+
+	/**
+	 * 获取一个随机字符串，字符串长度为N
+	 * @param n
+	 * @return
+	 */
+	public static String getRandomString(int n, int l){
+		char[] s = new char[n];
+		for(int i=0; i<n; i++){
+			s[i] = ((char)(97+rdm.nextInt(l)));
+		}
+		return new String(s);
+	}
 	
 	/**
 	 * 将字符串首字母大写
@@ -147,7 +161,18 @@ public class RandomUtil {
 			sb.deleteCharAt(sb.length()-1);
 		return sb.toString();
 	}
-	
+
+	public static String getRandomWords(int wn, int wl) {
+		StringBuffer sb = new StringBuffer();
+		wn = rdm.nextInt(wn+1)+(wn/2);
+		while(wn>0){
+			wn--;
+			sb.append(getRandomString(rdm.nextInt(wl)+wl, wl)).append(" ");
+		}
+		if(sb.length()>1)
+			sb.deleteCharAt(sb.length()-1);
+		return sb.toString();
+	}
 
 	public static String fixSize(int src, int len) {
 		String result = String.valueOf(src);
